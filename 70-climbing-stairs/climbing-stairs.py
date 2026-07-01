@@ -1,18 +1,12 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        # constraint = 1 <= n <= 45
-        memo = {}
+        if n <= 2:
+            return n
 
-        def f(currentStep):
-            if currentStep == n:
-                return 1
-            if currentStep > n:
-                return 0
-            if currentStep in memo:
-                return memo[currentStep]
+        prev2, prev1 = 1, 2
 
-            ways = f(currentStep + 1) + f(currentStep + 2)
-            memo[currentStep] = ways
-            return ways
+        for step in range(3, n + 1):
+            current = prev1 + prev2
+            prev2, prev1 = prev1, current
 
-        return f(0)
+        return prev1
